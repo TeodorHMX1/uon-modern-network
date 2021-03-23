@@ -22,17 +22,16 @@ import android.view.View;
 import com.zeoflow.app.Activity;
 import com.zeoflow.app.StatusBarUtil;
 import com.zeoflow.material.elements.button.MaterialButtonLoading;
-import com.zeoflow.material.elements.textfield.TextInputEditText;
-import com.zeoflow.material.elements.textfield.TextInputLayout;
 
 import org.teogor.modernnetwork.databinding.ActivityLoginBinding;
 import org.teogor.modernnetwork.user.UserBean;
 
+import java.util.Objects;
+
 public class LoginActivity extends Activity
 {
 
-    private TextInputLayout tilUsername;
-    private TextInputEditText tietUsername;
+    private ActivityLoginBinding loginBinding;
 
     @Override
     protected void onStart()
@@ -66,22 +65,20 @@ public class LoginActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTranslucent(this);
-        ActivityLoginBinding loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+        loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = loginBinding.getRoot();
         setContentView(view);
 
-        tilUsername = loginBinding.tilUsername;
-        tietUsername = loginBinding.tietUsername;
         MaterialButtonLoading mblJoin = loginBinding.mblJoin;
 
         mblJoin.setOnClickListener(v ->
         {
             mblJoin.setLoading(true);
-            if(isValidUsername())
+            if (isValidUsername())
             {
                 UserBean user = UserBean.create();
-                //noinspection ConstantConditions
-                user.username = tietUsername.getText().toString();
+                user.username = Objects.requireNonNull(loginBinding.tietUsername.getText()).toString();
+                user.password = Objects.requireNonNull(loginBinding.tietPassword.getText()).toString();
                 configureNewActivity(MainActivity.class)
                         .withParam("user_bean", user)
                         .start();
@@ -92,26 +89,50 @@ public class LoginActivity extends Activity
 
     private boolean isValidUsername()
     {
-        boolean valid = false;
-        if (tietUsername == null || tietUsername.getText() == null)
+        if (loginBinding.tietUsername.getText() == null || loginBinding.tietPassword.getText() == null)
         {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Empty username");
+            if (loginBinding.tietUsername.getText() == null)
+            {
+                loginBinding.tilUsername.setErrorEnabled(true);
+                loginBinding.tilUsername.setError("Empty username");
+            }
+            if (loginBinding.tietPassword.getText() == null)
+            {
+                loginBinding.tilPassword.setErrorEnabled(true);
+                loginBinding.tilPassword.setError("Empty password");
+            }
             return false;
         }
-        String username = tietUsername.getText().toString();
-        if (username.isEmpty())
+        String username = loginBinding.tietUsername.getText().toString();
+        String password = loginBinding.tietPassword.getText().toString();
+        if (username.isEmpty() && password.isEmpty())
         {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Empty username");
-        } else if (username.length() < 3 || username.length() > 30) {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Username must be between 3 and 30 character");
-        } else {
-            valid = true;
-            tilUsername.setErrorEnabled(false);
+            loginBinding.tilUsername.setErrorEnabled(true);
+            loginBinding.tilUsername.setError("Empty username");
+
+            loginBinding.tilPassword.setErrorEnabled(true);
+            loginBinding.tilPassword.setError("Empty password");
+            return false;
+        } else if (username.isEmpty())
+        {
+            loginBinding.tilUsername.setErrorEnabled(true);
+            loginBinding.tilUsername.setError("Empty username");
+
+            loginBinding.tilPassword.setErrorEnabled(false);
+            return false;
+        } else if (password.isEmpty())
+        {
+            loginBinding.tilPassword.setErrorEnabled(true);
+            loginBinding.tilPassword.setError("Empty password");
+
+            loginBinding.tilUsername.setErrorEnabled(false);
+            return false;
+        } else
+        {
+            loginBinding.tilUsername.setErrorEnabled(false);
+            loginBinding.tilPassword.setErrorEnabled(false);
+            return true;
         }
-        return valid;
     }
 
 }

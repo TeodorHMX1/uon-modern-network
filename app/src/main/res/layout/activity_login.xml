@@ -80,6 +80,27 @@
                     android:fontFamily="@font/font"/>
             </com.zeoflow.material.elements.textfield.TextInputLayout>
 
+            <com.zeoflow.material.elements.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                style="@style/MaterialElements.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:theme="@style/Theme.OutlinedBox.Dense"
+                android:fontFamily="@font/font"
+                android:singleLine="true"
+                app:errorTextColor="#F44336"
+                app:boxStrokeErrorColor="#F44336">
+
+                <com.zeoflow.material.elements.textfield.TextInputEditText
+                    android:id="@+id/tietPassword"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"/>
+            </com.zeoflow.material.elements.textfield.TextInputLayout>
+
             <com.zeoflow.material.elements.button.MaterialButtonLoading
                 android:id="@+id/mblJoin"
                 android:layout_width="match_parent"

@@ -79,16 +79,32 @@
             </com.zeoflow.material.elements.textfield.TextInputLayout>
 
             <com.zeoflow.material.elements.button.MaterialButtonLoading
-                android:id="@+id/mblJoin"
+                android:id="@+id/mblJoinServer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 app:mlbAccentColor="@color/bg_login_gradient_e"
                 app:mlbButtonDesign="outlined"
                 app:mlbLoadingColor="@color/bg_login_gradient_e"
                 app:mlbLoadingDesign="horizontal"
                 app:mlbRippleDefault="false"
                 app:mlbRippleColor="#9DC2FF"
-                app:mlbText="Join"
+                app:mlbText="Join Server"
+                app:mlbTextColor="@color/bg_login_gradient_e"
+                app:mlbFontFamily="@font/font" />
+
+            <com.zeoflow.material.elements.button.MaterialButtonLoading
+                android:id="@+id/mblCreateServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                app:mlbAccentColor="@color/bg_login_gradient_e"
+                app:mlbButtonDesign="outlined"
+                app:mlbLoadingColor="@color/bg_login_gradient_e"
+                app:mlbLoadingDesign="horizontal"
+                app:mlbRippleDefault="false"
+                app:mlbRippleColor="#9DC2FF"
+                app:mlbText="Create Server"
                 app:mlbTextColor="@color/bg_login_gradient_e"
                 app:mlbFontFamily="@font/font" />
 
