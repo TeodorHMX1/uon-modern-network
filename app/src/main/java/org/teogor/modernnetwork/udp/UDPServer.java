@@ -52,18 +52,18 @@ public class UDPServer
             throw new RuntimeException(e);
         }
 
-        asyncDatagramSocket.setDataCallback((emitter, bb) -> System.out.println("[TCPServer] Received Message " + new String(bb.getAllByteArray())));
+        asyncDatagramSocket.setDataCallback((emitter, bb) -> System.out.println("[UDPServer] Received Message " + new String(bb.getAllByteArray())));
 
         asyncDatagramSocket.setClosedCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPServer] Successfully closed connection");
+            System.out.println("[UDPServer] Successfully closed connection");
         });
 
         asyncDatagramSocket.setEndCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPServer] Successfully end connection");
+            System.out.println("[UDPServer] Successfully end connection");
         });
     }
 

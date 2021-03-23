@@ -55,13 +55,13 @@ public class UDPClient
         asyncDatagramSocket.setClosedCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPClient] Successfully closed connection");
+            System.out.println("[UDPClient] Successfully closed connection");
         });
 
         asyncDatagramSocket.setEndCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPClient] Successfully end connection");
+            System.out.println("[UDPClient] Successfully end connection");
         });
     }
 
