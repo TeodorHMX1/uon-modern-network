@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2021 Teodor G.
   ~
   ~     Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +14,192 @@
   ~     limitations under the License.
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@color/color_background">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bottomBar">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="62dp"
+            android:paddingEnd="25dp"
+            android:paddingStart="25dp"
+            android:orientation="vertical">
+
+            <com.zeoflow.material.elements.textfield.TextInputLayout
+                android:id="@+id/tilHost"
+                style="@style/MaterialElements.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Host"
+                android:theme="@style/Theme.OutlinedBox.Dense"
+                android:fontFamily="@font/font"
+                android:singleLine="true"
+                app:errorTextColor="#F44336"
+                app:boxStrokeErrorColor="#F44336">
+
+                <com.zeoflow.material.elements.textfield.TextInputEditText
+                    android:id="@+id/tietHost"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"/>
+            </com.zeoflow.material.elements.textfield.TextInputLayout>
+
+            <com.zeoflow.material.elements.textfield.TextInputLayout
+                android:id="@+id/tilPort"
+                style="@style/MaterialElements.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Port"
+                android:theme="@style/Theme.OutlinedBox.Dense"
+                android:fontFamily="@font/font"
+                android:singleLine="true"
+                app:errorTextColor="#F44336"
+                app:boxStrokeErrorColor="#F44336">
+
+                <com.zeoflow.material.elements.textfield.TextInputEditText
+                    android:id="@+id/tietPort"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"/>
+            </com.zeoflow.material.elements.textfield.TextInputLayout>
+
+            <com.zeoflow.material.elements.button.MaterialButtonLoading
+                android:id="@+id/mblJoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mlbAccentColor="@color/bg_login_gradient_e"
+                app:mlbButtonDesign="outlined"
+                app:mlbLoadingColor="@color/bg_login_gradient_e"
+                app:mlbLoadingDesign="horizontal"
+                app:mlbRippleDefault="false"
+                app:mlbRippleColor="#9DC2FF"
+                app:mlbText="Join"
+                app:mlbTextColor="@color/bg_login_gradient_e"
+                app:mlbFontFamily="@font/font" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rlToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/bg_toolbar"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/title_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="false"
+            android:focusable="false"
+            android:fontFamily="@font/font"
+            android:textAlignment="center"
+            android:textColor="@color/text_lvl1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_circle"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp">
+
+            <com.zeoflow.material.elements.textview.MaterialTextView
+                android:id="@+id/mtvUsernameTip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textColor="#ffffff"
+                android:layout_margin="3dp"
+                android:elevation="5dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@color/color_background"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                tools:ignore="UselessParent">
+
+                <com.zeoflow.material.elements.textview.MaterialTextView
+                    android:id="@+id/mtvUdp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:fontFamily="@font/font"
+                    android:gravity="center"
+                    android:text="UDP"
+                    android:textColor="@color/text_lvl1"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <com.zeoflow.material.elements.textview.MaterialTextView
+                    android:id="@+id/mtvTcp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:fontFamily="@font/font"
+                    android:gravity="center"
+                    android:text="TCP"
+                    android:textColor="@color/text_lvl2"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

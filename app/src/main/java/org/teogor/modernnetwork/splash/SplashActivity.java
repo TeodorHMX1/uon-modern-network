@@ -20,15 +20,43 @@ import android.os.Bundle;
 
 import com.zeoflow.app.Activity;
 
-import org.teogor.modernnetwork.MainActivity;
+import org.teogor.modernnetwork.LoginActivity;
+import org.teogor.modernnetwork.R;
 
 public class SplashActivity extends Activity
 {
 
     @Override
+    protected void onStart()
+    {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_out);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        startActivity(MainActivity.class);
+        startActivity(LoginActivity.class);
     }
 }

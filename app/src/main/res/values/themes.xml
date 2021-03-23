@@ -22,12 +22,22 @@
         <item name="colorOnPrimary">@color/primary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <!-- Background -->
         <item name="android:windowBackground">@drawable/background_splash_home</item>
     </style>
 
-    <style name="Theme.ModernNetwork" parent="Theme.MaterialElements.DayNight.NoActionBar">
+    <style name="Theme.Login" parent="Theme.MaterialElements.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/primary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+    </style>
+
+    <style name="Theme.Base" parent="Theme.MaterialElements.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary</item>

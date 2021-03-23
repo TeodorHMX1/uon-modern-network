@@ -22,4 +22,7 @@
     <color name="bg_login_gradient_e">#2575fc</color>
 
     <color name="text_lvl1">#000000</color>
+    <color name="text_lvl2">#8A8A8A</color>
+
+    <color name="bg_toolbar">#ebffffff</color>
 </resources>
