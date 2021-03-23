@@ -85,10 +85,8 @@ public class LoginActivity extends Activity
                 configureNewActivity(MainActivity.class)
                         .withParam("user_bean", user)
                         .start();
-                mblJoin.setLoading(false);
-            } else {
-                mblJoin.setLoading(false);
             }
+            mblJoin.setLoading(false);
         });
     }
 
@@ -106,9 +104,9 @@ public class LoginActivity extends Activity
         {
             tilUsername.setErrorEnabled(true);
             tilUsername.setError("Empty username");
-        } else if (username.length() < 5 || username.length() > 30) {
+        } else if (username.length() < 3 || username.length() > 30) {
             tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Username must be between 5 and 30 character");
+            tilUsername.setError("Username must be between 3 and 30 character");
         } else {
             valid = true;
             tilUsername.setErrorEnabled(false);

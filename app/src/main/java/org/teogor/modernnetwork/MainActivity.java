@@ -17,18 +17,26 @@
 package org.teogor.modernnetwork;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.zeoflow.app.Activity;
+import com.zeoflow.material.elements.textview.MaterialTextView;
+import com.zeoflow.utils.ContentCompat;
 
+import org.teogor.modernnetwork.databinding.ActivityMainBinding;
 import org.teogor.modernnetwork.tcp.TCP;
 import org.teogor.modernnetwork.tcp.TCPClient;
-import org.teogor.modernnetwork.udp.UDPClient;
 import org.teogor.modernnetwork.udp.UDP;
+import org.teogor.modernnetwork.udp.UDPClient;
 import org.teogor.modernnetwork.user.UserBean;
 
 public class MainActivity extends Activity
 {
+
+    private ActivityMainBinding mainBinding;
 
     @Override
     protected void onStart()
@@ -61,15 +69,31 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = mainBinding.getRoot();
+        setContentView(view);
 
         Intent intent = getIntent();
-        if(intent == null)
+        if (intent == null)
         {
             finish();
             return;
         }
         UserBean user = intent.getParcelableExtra("user_bean");
+        if (user.username == null)
+        {
+            user.username = "empty";
+        }
+
+        MaterialTextView mtvUsernameTip = mainBinding.mtvUsernameTip;
+        mtvUsernameTip.setText(user.username.toUpperCase());
+        mtvUsernameTip.setOnClickListener(v -> Toast.makeText(
+                zContext,
+                "Your username is: \"" + user.username + "\".",
+                Toast.LENGTH_SHORT
+        ).show());
+
+        setBottomBar();
 
         // UDP Builder
         // UDP Server
@@ -101,6 +125,33 @@ public class MainActivity extends Activity
         // send message as a client to the tcp server
         tcpClient.sendMessage("Hello, World! by TCP Client");
 
+    }
+
+    private void setBottomBar()
+    {
+        mainBinding.mtvUdp.setTextColor(ColorStateList.valueOf(ContentCompat.getColor(R.color.text_lvl1)));
+        mainBinding.mtvTcp.setTextColor(ColorStateList.valueOf(ContentCompat.getColor(R.color.text_lvl2)));
+        mainBinding.titleToolbar.setText("UDP Builder");
+        mainBinding.mtvUdp.setOnClickListener(v ->
+        {
+            mainBinding.titleToolbar.setText("UDP Builder");
+            mainBinding.mtvUdp.setTextColor(ContentCompat.getColor(R.color.text_lvl1));
+            mainBinding.mtvTcp.setTextColor(ContentCompat.getColor(R.color.text_lvl2));
+            resetBuilder();
+        });
+        mainBinding.mtvTcp.setOnClickListener(v ->
+        {
+            mainBinding.titleToolbar.setText("TCP Builder");
+            mainBinding.mtvUdp.setTextColor(ContentCompat.getColor(R.color.text_lvl2));
+            mainBinding.mtvTcp.setTextColor(ContentCompat.getColor(R.color.text_lvl1));
+            resetBuilder();
+        });
+    }
+
+    public void resetBuilder()
+    {
+        mainBinding.tietHost.setText(null);
+        mainBinding.tietPort.setText(null);
     }
 
 }
