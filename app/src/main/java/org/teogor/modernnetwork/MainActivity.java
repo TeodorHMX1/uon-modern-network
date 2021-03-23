@@ -36,28 +36,34 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // UDP Builder
+        // UDP Server
         UDP.Builder()
                 .port(7000)
                 .host("localhost")
                 .createServer();
 
+        //UDP Client
         UDPClient udpClient = UDP.Builder()
                 .port(7000)
                 .host("localhost")
                 .joinServer();
+        // send message as a client to the udp server
+        udpClient.send("Hello, World! by UDP Client");
 
-        udpClient.send("Hello, World!");
-
+        // TCP Builder
+        // TCP Server
         TCP.Builder()
                 .port(7001)
                 .host("localhost")
                 .createServer();
 
+        //TCP Client
         TCPClient tcpClient = TCP.Builder()
                 .port(7001)
                 .host("localhost")
                 .joinServer();
-
+        // send message as a client to the tcp server
         tcpClient.sendMessage("Hello, World! by TCP Client");
 
     }
