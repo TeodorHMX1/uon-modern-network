@@ -40,4 +40,5 @@ dependencies {
     annotationProcessor("com.zeoflow:parcelled-compiler:$parcelled_version")
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.koushikdutta.async:androidasync:2.1.7'
 }
