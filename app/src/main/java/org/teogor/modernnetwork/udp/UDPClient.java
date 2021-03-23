@@ -16,6 +16,8 @@
 
 package org.teogor.modernnetwork.udp;
 
+import android.os.StrictMode;
+
 import com.koushikdutta.async.AsyncDatagramSocket;
 import com.koushikdutta.async.AsyncServer;
 
@@ -31,6 +33,11 @@ public class UDPClient
 
     public UDPClient(String host, int port)
     {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder()
+                .permitAll()
+                .build();
+        StrictMode.setThreadPolicy(policy);
         this.host = new InetSocketAddress(host, port);
         setup();
     }
@@ -48,13 +55,13 @@ public class UDPClient
         asyncDatagramSocket.setClosedCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPClient] Successfully closed connection");
+            System.out.println("[UDPClient] Successfully closed connection");
         });
 
         asyncDatagramSocket.setEndCallback(ex ->
         {
             if (ex != null) throw new RuntimeException(ex);
-            System.out.println("[TCPClient] Successfully end connection");
+            System.out.println("[UDPClient] Successfully end connection");
         });
     }
 
