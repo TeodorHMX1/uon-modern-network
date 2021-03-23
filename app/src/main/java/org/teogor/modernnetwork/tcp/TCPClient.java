@@ -16,6 +16,8 @@
 
 package org.teogor.modernnetwork.tcp;
 
+import android.os.StrictMode;
+
 import com.koushikdutta.async.AsyncServer;
 import com.koushikdutta.async.AsyncSocket;
 import com.koushikdutta.async.Util;
@@ -27,9 +29,15 @@ public class TCPClient
 
     private final String host;
     private final int port;
+    private AsyncSocket socket;
 
     public TCPClient(String host, int port)
     {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder()
+                .permitAll()
+                .build();
+        StrictMode.setThreadPolicy(policy);
         this.host = host;
         this.port = port;
         setup();
@@ -43,12 +51,7 @@ public class TCPClient
     private void handleConnectCompleted(Exception ex, final AsyncSocket socket)
     {
         if (ex != null) throw new RuntimeException(ex);
-
-        Util.writeAll(socket, "Hello TCPServer".getBytes(), ex1 ->
-        {
-            if (ex1 != null) throw new RuntimeException(ex1);
-            System.out.println("[TCPClient] Successfully wrote message");
-        });
+        this.socket = socket;
 
         socket.setDataCallback((emitter, bb) -> System.out.println("[TCPClient] Received Message " + new String(bb.getAllByteArray())));
 
@@ -62,6 +65,19 @@ public class TCPClient
         {
             if (ex13 != null) throw new RuntimeException(ex13);
             System.out.println("[TCPClient] Successfully end connection");
+        });
+    }
+
+    public void sendMessage(String text)
+    {
+        if(socket == null)
+        {
+            return;
+        }
+        Util.writeAll(socket, text.getBytes(), ex1 ->
+        {
+            if (ex1 != null) throw new RuntimeException(ex1);
+            System.out.println("[TCPClient] Successfully wrote message");
         });
     }
 
