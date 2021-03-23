@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import org.teogor.modernnetwork.tcp.TCP;
 import org.teogor.modernnetwork.tcp.TCPClient;
 import org.teogor.modernnetwork.tcp.TCPServer;
 import org.teogor.modernnetwork.udp.UDPClient;
@@ -40,31 +41,24 @@ public class MainActivity extends AppCompatActivity
                 .host("localhost")
                 .createServer();
 
-        UDPClient client = UDP.Builder()
+        UDPClient udpClient = UDP.Builder()
                 .port(7000)
                 .host("localhost")
                 .joinServer();
 
-        client.send("Hello, World!");
+        udpClient.send("Hello, World!");
 
-//        Thread thread = new Thread(() ->
-//        {
-//            try
-//            {
-//                //TCP client and server (TCPClient will automatically send welcome message after setup and server will respond)
-//                new TCPServer("localhost", 7000);
-//                new TCPClient("localhost", 7000);
-//
-//                //UDP client and server (Here the client explicitly sends a message)
-//                new UDPServer("localhost", 7001);
-//                new UDPClient("localhost", 7001).send("Hello World");
-//            } catch (Exception e)
-//            {
-//                e.printStackTrace();
-//            }
-//        });
+        TCP.Builder()
+                .port(7001)
+                .host("localhost")
+                .createServer();
 
-//        thread.start();
+        TCPClient tcpClient = TCP.Builder()
+                .port(7001)
+                .host("localhost")
+                .joinServer();
+
+        tcpClient.sendMessage("Hello, World! by TCP Client");
 
     }
 

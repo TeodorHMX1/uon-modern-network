@@ -36,9 +36,11 @@ public class TCPServer extends Entity
 
     public TCPServer(String host, int port)
     {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder()
+                .permitAll()
+                .build();
         StrictMode.setThreadPolicy(policy);
-
         try
         {
             this.host = InetAddress.getByName(host);
