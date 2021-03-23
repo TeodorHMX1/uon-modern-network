@@ -16,25 +16,60 @@
 
 package org.teogor.modernnetwork;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.zeoflow.app.Activity;
 
 import org.teogor.modernnetwork.tcp.TCP;
 import org.teogor.modernnetwork.tcp.TCPClient;
-import org.teogor.modernnetwork.tcp.TCPServer;
 import org.teogor.modernnetwork.udp.UDPClient;
-import org.teogor.modernnetwork.udp.UDPServer;
 import org.teogor.modernnetwork.udp.UDP;
+import org.teogor.modernnetwork.user.UserBean;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends Activity
 {
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    public void finish()
+    {
+        super.finish();
+        overridePendingTransition(0, R.anim.fade_out);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        if(intent == null)
+        {
+            finish();
+            return;
+        }
+        UserBean user = intent.getParcelableExtra("user_bean");
 
         // UDP Builder
         // UDP Server
