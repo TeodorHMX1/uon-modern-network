@@ -16,6 +16,8 @@
 
 package org.teogor.modernnetwork.udp;
 
+import android.os.StrictMode;
+
 import com.koushikdutta.async.AsyncDatagramSocket;
 import com.koushikdutta.async.AsyncServer;
 
@@ -29,6 +31,11 @@ public class UDPServer
 
     public UDPServer(String host, int port)
     {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                .Builder()
+                .permitAll()
+                .build();
+        StrictMode.setThreadPolicy(policy);
         this.host = new InetSocketAddress(host, port);
         setup();
     }
