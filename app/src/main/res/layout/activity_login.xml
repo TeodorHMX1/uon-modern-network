@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 Teodor G.
+  ~
+  ~     Licensed under the Apache License, Version 2.0 (the "License");
+  ~     you may not use this file except in compliance with the License.
+  ~     You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~     Unless required by applicable law or agreed to in writing, software
+  ~     distributed under the License is distributed on an "AS IS" BASIS,
+  ~     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~     See the License for the specific language governing permissions and
+  ~     limitations under the License.
+  -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_login"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_rounded_corners">
+
+        <com.zeoflow.material.elements.textview.MaterialTextView
+            android:id="@+id/txtTitleLogIn"
+            fontPath="fonts/bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/font"
+            android:gravity="center"
+            android:text="Join As:"
+            android:textColor="@color/text_lvl1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="MissingPrefix" />
+
+        <LinearLayout
+            android:id="@+id/llHolderInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/txtTitleLogIn">
+
+            <com.zeoflow.material.elements.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                style="@style/MaterialElements.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:theme="@style/Theme.OutlinedBox.Dense"
+                android:fontFamily="@font/font"
+                android:singleLine="true"
+                app:errorTextColor="#F44336"
+                app:boxStrokeErrorColor="#F44336">
+
+                <com.zeoflow.material.elements.textfield.TextInputEditText
+                    android:id="@+id/tietUsername"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font"/>
+            </com.zeoflow.material.elements.textfield.TextInputLayout>
+
+            <com.zeoflow.material.elements.button.MaterialButtonLoading
+                android:id="@+id/mblJoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mlbAccentColor="@color/bg_login_gradient_e"
+                app:mlbButtonDesign="outlined"
+                app:mlbLoadingColor="@color/bg_login_gradient_e"
+                app:mlbLoadingDesign="horizontal"
+                app:mlbRippleDefault="false"
+                app:mlbRippleColor="#9DC2FF"
+                app:mlbText="Join"
+                app:mlbTextColor="@color/bg_login_gradient_e"
+                app:mlbFontFamily="@font/font" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

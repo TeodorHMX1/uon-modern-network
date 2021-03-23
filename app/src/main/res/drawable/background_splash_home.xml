@@ -16,7 +16,7 @@
   -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/colorBackground" />
+    <item android:drawable="@color/color_background" />
 
 <!--    <item-->
 <!--        android:width="130dp"-->
