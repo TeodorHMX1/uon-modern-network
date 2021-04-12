@@ -29,7 +29,7 @@ auto_assign:
   use_review_groups: false
   use_assignee_groups: false
   add_reviewers: true
-  add_assignees: false
+  add_assignees: true
   number_of_assignees: 0
   number_of_reviewers: 0
   review_groups:
@@ -37,6 +37,7 @@ auto_assign:
   reviewers_to_add:
     - TeodorHMX1
   assignees_to_add:
+    - TeodorHMX1
   skip_keywords:
 
 # Autodelete Merged Branches (AMB)
@@ -84,7 +85,7 @@ license_checker:
   allowed:
     # people/organisations who own the license
     copyright_holders:
-      - Teodor G.
+      - TeodorHMX1 (Teodor G.)
     # licenses that are approved
     licenses:
       - Apache-2.0
