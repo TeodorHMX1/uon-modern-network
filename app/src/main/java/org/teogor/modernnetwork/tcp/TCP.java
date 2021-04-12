@@ -16,12 +16,12 @@
 
 package org.teogor.modernnetwork.tcp;
 
+@SuppressWarnings("UnusedReturnValue")
 public class TCP
 {
     private int port = 7000;
     private String host = "localhost";
 
-    @SuppressWarnings("InstantiationOfUtilityClass")
     public static TCP Builder()
     {
         return new TCP();

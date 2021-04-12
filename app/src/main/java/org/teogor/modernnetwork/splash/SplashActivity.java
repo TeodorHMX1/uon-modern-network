@@ -19,8 +19,11 @@ package org.teogor.modernnetwork.splash;
 import android.os.Bundle;
 
 import com.zeoflow.app.Activity;
+import com.zeoflow.memo.ConcealEncryption;
+import com.zeoflow.memo.Memo;
 
 import org.teogor.modernnetwork.LoginActivity;
+import org.teogor.modernnetwork.MainActivity;
 import org.teogor.modernnetwork.R;
 
 public class SplashActivity extends Activity
@@ -57,6 +60,24 @@ public class SplashActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        startActivity(LoginActivity.class);
+
+        /*
+         * TODO move to the Application class when it will
+         *  when it will be created
+         */
+        // initialize memo library
+        Memo.init().setEncryption(new ConcealEncryption("d363d3tdJ"))
+                .build();
+
+        // check if the user logged in previously
+        if (Memo.get("loggedIn", false))
+        {
+            finish();
+            startActivity(MainActivity.class);
+        } else {
+            finish();
+            startActivity(LoginActivity.class);
+        }
     }
+
 }

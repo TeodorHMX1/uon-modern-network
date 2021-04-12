@@ -19,11 +19,12 @@ package org.teogor.modernnetwork;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.zeoflow.app.Activity;
-import com.zeoflow.material.elements.textview.MaterialTextView;
+import com.zeoflow.memo.Memo;
 import com.zeoflow.utils.ContentCompat;
 
 import org.teogor.modernnetwork.databinding.ActivityMainBinding;
@@ -73,25 +74,37 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // check if the user logged in previously
+        if (!Memo.get("loggedIn", false))
+        {
+            finish();
+            startActivity(LoginActivity.class);
+            return;
+        }
+        // check if the user stored is null
+        if (Memo.get("userData", null) == null)
+        {
+            finish();
+            Memo.put("loggedIn", false);
+            startActivity(LoginActivity.class);
+            return;
+        }
+
+        // Set the layout for the main activity
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = mainBinding.getRoot();
         setContentView(view);
 
-        Intent intent = getIntent();
-        if (intent == null)
-        {
-            finish();
-            return;
-        }
-        UserBean user = intent.getParcelableExtra("user_bean");
+        // get user data from memory
+        UserBean user = Memo.get("userData");
         if (user.username == null)
         {
             user.username = "empty";
         }
 
-        MaterialTextView mtvUsernameTip = mainBinding.mtvUsernameTip;
-        mtvUsernameTip.setText(user.username.toUpperCase());
-        mtvUsernameTip.setOnClickListener(v -> Toast.makeText(
+        mainBinding.mtvUsernameTip.setText(user.username.toUpperCase());
+        mainBinding.mtvUsernameTip.setOnClickListener(v -> Toast.makeText(
                 zContext,
                 "You joined as: \"" + user.username + "\".",
                 Toast.LENGTH_SHORT

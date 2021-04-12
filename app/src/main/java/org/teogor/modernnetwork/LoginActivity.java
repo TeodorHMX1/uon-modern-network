@@ -20,8 +20,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zeoflow.app.Activity;
-import com.zeoflow.app.StatusBarUtil;
-import com.zeoflow.material.elements.button.MaterialButtonLoading;
+import com.zeoflow.memo.Memo;
+import com.zeoflow.utils.StatusBarUtil;
 
 import org.teogor.modernnetwork.databinding.ActivityLoginBinding;
 import org.teogor.modernnetwork.user.UserBean;
@@ -64,31 +64,62 @@ public class LoginActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // check if the user logged in previously
+        if (Memo.get("loggedIn", false))
+        {
+            finish();
+            startActivity(MainActivity.class);
+            return;
+        }
+
+        // set the status bar to be based on the root view from the layout
         StatusBarUtil.setTranslucent(this);
+
+        // Set the layout for the login activity
         loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = loginBinding.getRoot();
         setContentView(view);
 
-        MaterialButtonLoading mblJoin = loginBinding.mblJoin;
-
-        mblJoin.setOnClickListener(v ->
+        // Set click listener for the join button
+        loginBinding.mblJoin.setOnClickListener(v ->
         {
-            mblJoin.setLoading(true);
-            if (isValidUsername())
+            // When clicked show the loading bar on the button
+            loginBinding.mblJoin.setLoading(true);
+            // validate the user's content such as the username and password
+            if (isValidLogInInput())
             {
+                finish();
+                // create parcelable user bean
                 UserBean user = UserBean.create();
+                // set the username based on the input
                 user.username = Objects.requireNonNull(loginBinding.tietUsername.getText()).toString();
+                // set the password based on the input
                 user.password = Objects.requireNonNull(loginBinding.tietPassword.getText()).toString();
+                // store user details in memory
+                Memo.put("userData", user);
+                // set loggedIn to true
+                Memo.put("loggedIn", true);
+                // start the MainActivity with the user data as parameter
+                // the user is of type Parcelable when passed through intent
                 configureNewActivity(MainActivity.class)
-                        .withParam("user_bean", user)
+                        .withParam("userData", user)
                         .start();
             }
-            mblJoin.setLoading(false);
+            // hide the loading bar from the join button
+            loginBinding.mblJoin.setLoading(false);
         });
     }
 
-    private boolean isValidUsername()
+    /*
+     * Check if the input is valid
+     *
+     * @return boolean validInput
+     */
+    private boolean isValidLogInInput()
     {
+        // if the username or password is empty return false and
+        // show the relevant message inside the input
         if (loginBinding.tietUsername.getText() == null || loginBinding.tietPassword.getText() == null)
         {
             if (loginBinding.tietUsername.getText() == null)
@@ -103,7 +134,9 @@ public class LoginActivity extends Activity
             }
             return false;
         }
+        // get the username from input
         String username = loginBinding.tietUsername.getText().toString();
+        // get the password from input
         String password = loginBinding.tietPassword.getText().toString();
         if (username.isEmpty() && password.isEmpty())
         {

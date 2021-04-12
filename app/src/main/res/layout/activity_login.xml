@@ -23,7 +23,8 @@
     android:background="@drawable/bg_gradient_login"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:viewBindingIgnore="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
