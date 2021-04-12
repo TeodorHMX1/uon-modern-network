@@ -16,10 +16,9 @@
 
 package org.teogor.modernnetwork;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -115,6 +114,7 @@ public class MainActivity extends Activity
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void setBottomBar()
     {
         mainBinding.mtvUdp.setTextColor(ColorStateList.valueOf(ContentCompat.getColor(R.color.text_lvl1)));
@@ -151,7 +151,7 @@ public class MainActivity extends Activity
         mainBinding.mblJoinServer.setOnClickListener(v ->
         {
             mainBinding.mblJoinServer.setLoading(true);
-            if(isValidBuilder())
+            if (isValidBuilder())
             {
                 String port = Objects.requireNonNull(mainBinding.tietPort.getText()).toString();
                 String host = Objects.requireNonNull(mainBinding.tietHost.getText()).toString();
@@ -176,7 +176,7 @@ public class MainActivity extends Activity
         mainBinding.mblCreateServer.setOnClickListener(v ->
         {
             mainBinding.mblCreateServer.setLoading(true);
-            if(isValidBuilder())
+            if (isValidBuilder())
             {
                 String port = Objects.requireNonNull(mainBinding.tietPort.getText()).toString();
                 String host = Objects.requireNonNull(mainBinding.tietHost.getText()).toString();
@@ -204,12 +204,12 @@ public class MainActivity extends Activity
     {
         if (mainBinding.tietPort.getText() == null || mainBinding.tietHost.getText() == null)
         {
-            if(mainBinding.tietHost.getText() == null)
+            if (mainBinding.tietHost.getText() == null)
             {
                 mainBinding.tilHost.setErrorEnabled(true);
                 mainBinding.tilHost.setError("Empty host");
             }
-            if(mainBinding.tietPort.getText() == null)
+            if (mainBinding.tietPort.getText() == null)
             {
                 mainBinding.tilPort.setErrorEnabled(true);
                 mainBinding.tilPort.setError("Empty port");

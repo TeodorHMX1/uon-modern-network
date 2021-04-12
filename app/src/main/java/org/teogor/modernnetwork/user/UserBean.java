@@ -35,7 +35,8 @@ public abstract class UserBean implements Parcelable, IParcelled_UserBean
     @Default(code = "null")
     public String password;
 
-    public static UserBean create() {
+    public static UserBean create()
+    {
         return new Parcelled_UserBean();
     }
 

@@ -19,6 +19,7 @@ package org.teogor.modernnetwork.udp;
 @SuppressWarnings("UnusedReturnValue")
 public class UDP
 {
+
     private int port = 7000;
     private String host = "localhost";
 

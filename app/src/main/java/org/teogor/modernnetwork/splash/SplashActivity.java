@@ -74,7 +74,8 @@ public class SplashActivity extends Activity
         {
             finish();
             startActivity(MainActivity.class);
-        } else {
+        } else
+        {
             finish();
             startActivity(LoginActivity.class);
         }

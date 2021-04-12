@@ -70,7 +70,7 @@ public class TCPClient
 
     public void sendMessage(String text)
     {
-        if(socket == null)
+        if (socket == null)
         {
             return;
         }
