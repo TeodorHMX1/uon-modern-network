@@ -62,8 +62,12 @@ public class SplashActivity extends Activity
         super.onCreate(savedInstanceState);
 
         /*
-         * TODO move to the Application class when it will
-         *  when it will be created
+         * @todo-zeobot(t): Create `Application` Class
+         * @todo-zeobot(b): The application class is loaded at runtime and it is
+         * @todo-zeobot(b): good practice to initialize Memo there instead in the
+         * @todo-zeobot(b): splash screen
+         * @todo-zeobot(a): TeodorHMX1
+         * @todo-zeobot(l): feature, priority-very-low
          */
         // initialize memo library
         Memo.init().setEncryption(new ConcealEncryption("d363d3tdJ"))
