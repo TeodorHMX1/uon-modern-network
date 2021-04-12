@@ -14,40 +14,10 @@
  *     limitations under the License.
  */
 
-package org.teogor.modernnetwork.udp;
+package org.teogor.modernnetwork.types;
 
-@SuppressWarnings("UnusedReturnValue")
-public class UDP
+public enum BuilderTypes
 {
-
-    private int port = 7000;
-    private String host = "localhost";
-
-    public static UDP Builder()
-    {
-        return new UDP();
-    }
-
-    public UDP port(int port)
-    {
-        this.port = port;
-        return this;
-    }
-
-    public UDP host(String host)
-    {
-        this.host = host;
-        return this;
-    }
-
-    public UDPServer createServer()
-    {
-        return new UDPServer(host, port);
-    }
-
-    public UDPClient joinServer()
-    {
-        return new UDPClient(host, port);
-    }
-
+    UDP,
+    TCP
 }

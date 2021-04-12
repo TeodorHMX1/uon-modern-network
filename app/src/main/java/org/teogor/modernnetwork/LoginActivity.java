@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Teodor G.
+ * Copyright (c) 2021 TeodorHMX1 (Teodor G.)
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.zeoflow.app.Activity;
-import com.zeoflow.app.StatusBarUtil;
-import com.zeoflow.material.elements.button.MaterialButtonLoading;
-import com.zeoflow.material.elements.textfield.TextInputEditText;
-import com.zeoflow.material.elements.textfield.TextInputLayout;
+import com.zeoflow.memo.Memo;
+import com.zeoflow.utils.StatusBarUtil;
 
 import org.teogor.modernnetwork.databinding.ActivityLoginBinding;
 import org.teogor.modernnetwork.user.UserBean;
 
+import java.util.Objects;
+
 public class LoginActivity extends Activity
 {
 
-    private TextInputLayout tilUsername;
-    private TextInputEditText tietUsername;
+    private ActivityLoginBinding loginBinding;
 
     @Override
     protected void onStart()
@@ -65,53 +64,108 @@ public class LoginActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // check if the user logged in previously
+        if (Memo.get("loggedIn", false))
+        {
+            finish();
+            startActivity(MainActivity.class);
+            return;
+        }
+
+        // set the status bar to be based on the root view from the layout
         StatusBarUtil.setTranslucent(this);
-        ActivityLoginBinding loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+
+        // Set the layout for the login activity
+        loginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = loginBinding.getRoot();
         setContentView(view);
 
-        tilUsername = loginBinding.tilUsername;
-        tietUsername = loginBinding.tietUsername;
-        MaterialButtonLoading mblJoin = loginBinding.mblJoin;
-
-        mblJoin.setOnClickListener(v ->
+        // Set click listener for the join button
+        loginBinding.mblJoin.setOnClickListener(v ->
         {
-            mblJoin.setLoading(true);
-            if(isValidUsername())
+            // When clicked show the loading bar on the button
+            loginBinding.mblJoin.setLoading(true);
+            // validate the user's content such as the username and password
+            if (isValidLogInInput())
             {
+                finish();
+                // create parcelable user bean
                 UserBean user = UserBean.create();
-                //noinspection ConstantConditions
-                user.username = tietUsername.getText().toString();
+                // set the username based on the input
+                user.username = Objects.requireNonNull(loginBinding.tietUsername.getText()).toString();
+                // set the password based on the input
+                user.password = Objects.requireNonNull(loginBinding.tietPassword.getText()).toString();
+                // store user details in memory
+                Memo.put("userData", user);
+                // set loggedIn to true
+                Memo.put("loggedIn", true);
+                // start the MainActivity with the user data as parameter
+                // the user is of type Parcelable when passed through intent
                 configureNewActivity(MainActivity.class)
-                        .withParam("user_bean", user)
+                        .withParam("userData", user)
                         .start();
             }
-            mblJoin.setLoading(false);
+            // hide the loading bar from the join button
+            loginBinding.mblJoin.setLoading(false);
         });
     }
 
-    private boolean isValidUsername()
+    /*
+     * Check if the input is valid
+     *
+     * @return boolean validInput
+     */
+    private boolean isValidLogInInput()
     {
-        boolean valid = false;
-        if (tietUsername == null || tietUsername.getText() == null)
+        // if the username or password is empty return false and
+        // show the relevant message inside the input
+        if (loginBinding.tietUsername.getText() == null || loginBinding.tietPassword.getText() == null)
         {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Empty username");
+            if (loginBinding.tietUsername.getText() == null)
+            {
+                loginBinding.tilUsername.setErrorEnabled(true);
+                loginBinding.tilUsername.setError("Empty username");
+            }
+            if (loginBinding.tietPassword.getText() == null)
+            {
+                loginBinding.tilPassword.setErrorEnabled(true);
+                loginBinding.tilPassword.setError("Empty password");
+            }
             return false;
         }
-        String username = tietUsername.getText().toString();
-        if (username.isEmpty())
+        // get the username from input
+        String username = loginBinding.tietUsername.getText().toString();
+        // get the password from input
+        String password = loginBinding.tietPassword.getText().toString();
+        if (username.isEmpty() && password.isEmpty())
         {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Empty username");
-        } else if (username.length() < 3 || username.length() > 30) {
-            tilUsername.setErrorEnabled(true);
-            tilUsername.setError("Username must be between 3 and 30 character");
-        } else {
-            valid = true;
-            tilUsername.setErrorEnabled(false);
+            loginBinding.tilUsername.setErrorEnabled(true);
+            loginBinding.tilUsername.setError("Empty username");
+
+            loginBinding.tilPassword.setErrorEnabled(true);
+            loginBinding.tilPassword.setError("Empty password");
+            return false;
+        } else if (username.isEmpty())
+        {
+            loginBinding.tilUsername.setErrorEnabled(true);
+            loginBinding.tilUsername.setError("Empty username");
+
+            loginBinding.tilPassword.setErrorEnabled(false);
+            return false;
+        } else if (password.isEmpty())
+        {
+            loginBinding.tilPassword.setErrorEnabled(true);
+            loginBinding.tilPassword.setError("Empty password");
+
+            loginBinding.tilUsername.setErrorEnabled(false);
+            return false;
+        } else
+        {
+            loginBinding.tilUsername.setErrorEnabled(false);
+            loginBinding.tilPassword.setErrorEnabled(false);
+            return true;
         }
-        return valid;
     }
 
 }

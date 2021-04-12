@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Teodor G.
+ * Copyright (c) 2021 TeodorHMX1 (Teodor G.)
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 
 package org.teogor.modernnetwork.tcp;
 
+@SuppressWarnings("UnusedReturnValue")
 public class TCP
 {
+
     private int port = 7000;
     private String host = "localhost";
 
-    @SuppressWarnings("InstantiationOfUtilityClass")
     public static TCP Builder()
     {
         return new TCP();
